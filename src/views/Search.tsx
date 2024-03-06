@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCharacters, clearCharacters } from '../redux/actions';
 import { Character } from '../types/types';
 import { AppDispatch, RootState } from '../redux/store';
-import { Chip, TextField, Checkbox, Avatar, ListItem, ListItemText, ListItemAvatar, CircularProgress, Typography, Divider } from '@material-ui/core';
+import { Chip, TextField, Checkbox, Avatar, ListItem, ListItemText, ListItemAvatar, CircularProgress, Typography, Divider, Box } from '@material-ui/core';
 
 function Search() {
   const [input, setInput] = useState('');
@@ -28,8 +28,9 @@ function Search() {
     if (characters.length > 0 && listRef.current) {
       const listItem = listRef.current.children[focusedCharacterIndex].firstChild as HTMLElement;
       const listItemRect = listItem.getBoundingClientRect();
-      const isVisible = listItemRect.top >= 0 && listItemRect.bottom <= window.innerHeight;
-
+      const listRect = listRef.current.getBoundingClientRect();
+      const isVisible = listItemRect.top >= listRect.top && listItemRect.bottom <= listRect.bottom;
+  
       if (!isVisible) {
         listItem.scrollIntoView({ behavior: 'smooth' });
       }
@@ -76,7 +77,7 @@ function Search() {
   };
 
   return (
-    <div>
+    <Box display="flex" sx={{padding:"10px",border:'1px solid red'}}>
       <TextField
         type="text"
         variant='outlined'
@@ -85,12 +86,13 @@ function Search() {
         onKeyDown={handleKeyDown}
         placeholder="Search characters"
         InputProps={{
-          style: { borderRadius: '15px'},
+          style: { borderRadius: '15px', width: '700px'},
           startAdornment: selectedCharacters.map(character => (
             <Chip
               key={character.id}
               label={character.name}
               onDelete={() => handleSelectCharacter(character)}
+              style={{marginRight: '5px'}}
             />
           )),
         }}
@@ -100,9 +102,9 @@ function Search() {
       ) : error ? (
         <Typography variant="body1" color="error">{error}</Typography>
       ) : characters.length > 0 && (
-        <ul ref={listRef} style={{border:"1px solid gray", borderRadius:"15px", padding:"0"}}>
+        <ul ref={listRef} style={{border:"0.5px solid gray", borderRadius:"25px", padding:"0", width:"700px", height:"400px", overflow:"scroll"}}>
           {characters.map((character: Character, index: number) => (
-            <div>
+            <Box sx={{borderRadius:'15px'}}>
               <ListItem
                 key={character.id}
                 selected={index === focusedCharacterIndex}
@@ -112,7 +114,7 @@ function Search() {
                   onChange={() => handleSelectCharacter(character)}
                 />
                 <ListItemAvatar>
-                  <Avatar src={character.image} />
+                  <Avatar style={{borderRadius:'10px'}} src={character.image} />
                 </ListItemAvatar>
                 <ListItemText
                   primary={highlightText(character.name, input)}
@@ -120,11 +122,11 @@ function Search() {
                 />
               </ListItem>
               <Divider />
-            </div>
+            </Box>
           ))}
         </ul>
       )}
-    </div>
+    </Box>
   );
 }
 
