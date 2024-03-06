@@ -1,5 +1,5 @@
 // Search.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCharacters, clearCharacters } from '../redux/actions';
 import { Character } from '../types/types';
@@ -9,10 +9,12 @@ import { Chip, TextField, Checkbox, Avatar, ListItem, ListItemText, ListItemAvat
 function Search() {
   const [input, setInput] = useState('');
   const [selectedCharacters, setSelectedCharacters] = useState<Character[]>([]);
+  const [focusedCharacterIndex, setFocusedCharacterIndex] = useState(0);
   const characters = useSelector((state: RootState) => state.characters);
   const isLoading = useSelector((state: RootState) => state.isLoading);
   const error = useSelector((state: RootState) => state.error);
   const dispatch: AppDispatch = useDispatch();
+  const listRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     if (input.trim() === '') {
@@ -21,6 +23,42 @@ function Search() {
       dispatch(fetchCharacters(input));
     }
   }, [input, dispatch]);
+
+  useEffect(() => {
+    if (listRef.current) {
+      const listItem = listRef.current.children[focusedCharacterIndex] as HTMLElement;
+      const listItemRect = listItem.getBoundingClientRect();
+      const isVisible = listItemRect.top >= 0 && listItemRect.bottom <= window.innerHeight;
+  
+      if (!isVisible) {
+        listItem.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [focusedCharacterIndex]);
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        setFocusedCharacterIndex(prevIndex => Math.min(prevIndex + 1, characters.length - 1));
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        setFocusedCharacterIndex(prevIndex => Math.max(prevIndex - 1, 0));
+        break;
+      case 'Enter':
+        event.preventDefault();
+        handleSelectCharacter(characters[focusedCharacterIndex]);
+        break;
+      case 'Backspace':
+        if (input === '') {
+          setSelectedCharacters(prevCharacters => prevCharacters.slice(0, -1));
+        }
+        break;
+      default:
+        break;
+    }
+  };
 
   const handleSelectCharacter = (character: Character) => {
     setSelectedCharacters(prevCharacters => {
@@ -44,6 +82,7 @@ function Search() {
         variant='outlined'
         value={input} 
         onChange={e => setInput(e.target.value)} 
+        onKeyDown={handleKeyDown}
         placeholder="Search characters"
         InputProps={{
           startAdornment: selectedCharacters.map(character => (
@@ -59,21 +98,28 @@ function Search() {
         <CircularProgress />
       ) : error ? (
         <Typography variant="body1" color="error">{error}</Typography>
-      ) : characters && characters.map((character: Character) => (
-        <ListItem key={character.id}>
-          <Checkbox 
-            checked={!!selectedCharacters.find(c => c.id === character.id)} 
-            onChange={() => handleSelectCharacter(character)} 
-          />
-          <ListItemAvatar>
-            <Avatar src={character.image} />
-          </ListItemAvatar>
-          <ListItemText 
-            primary={highlightText(character.name, input)} 
-            secondary={`${character.episode.length} episodes`} 
-          />
-        </ListItem>
-      ))}
+      ) : characters && (
+        <ul ref={listRef}>
+          {characters.map((character: Character, index: number) => (
+            <ListItem 
+              key={character.id}
+              selected={index === focusedCharacterIndex}
+            >
+              <Checkbox 
+                checked={!!selectedCharacters.find(c => c.id === character.id)} 
+                onChange={() => handleSelectCharacter(character)} 
+              />
+              <ListItemAvatar>
+                <Avatar src={character.image} />
+              </ListItemAvatar>
+              <ListItemText 
+                primary={highlightText(character.name, input)} 
+                secondary={`${character.episode.length} episodes`} 
+              />
+            </ListItem>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
