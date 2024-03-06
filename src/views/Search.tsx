@@ -85,6 +85,7 @@ function Search() {
         onKeyDown={handleKeyDown}
         placeholder="Search characters"
         InputProps={{
+          style: { borderRadius: '15px'},
           startAdornment: selectedCharacters.map(character => (
             <Chip
               key={character.id}
@@ -99,7 +100,7 @@ function Search() {
       ) : error ? (
         <Typography variant="body1" color="error">{error}</Typography>
       ) : characters.length > 0 && (
-        <ul ref={listRef} style={{border:"1px solid gray", borderRadius:"10px", padding:"0"}}>
+        <ul ref={listRef} style={{border:"1px solid gray", borderRadius:"15px", padding:"0"}}>
           {characters.map((character: Character, index: number) => (
             <div>
               <ListItem
