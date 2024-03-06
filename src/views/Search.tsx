@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCharacters, clearCharacters } from '../redux/actions';
 import { Character } from '../types/types';
 import { AppDispatch, RootState } from '../redux/store';
-import { Chip, TextField, Checkbox, Avatar, ListItem, ListItemText, ListItemAvatar, ListItemSecondaryAction, CircularProgress, Typography } from '@material-ui/core';
+import { Chip, TextField, Checkbox, Avatar, ListItem, ListItemText, ListItemAvatar, CircularProgress, Typography, Divider } from '@material-ui/core';
 
 function Search() {
   const [input, setInput] = useState('');
@@ -26,10 +26,10 @@ function Search() {
 
   useEffect(() => {
     if (characters.length > 0 && listRef.current) {
-      const listItem = listRef.current.children[focusedCharacterIndex] as HTMLElement;
+      const listItem = listRef.current.children[focusedCharacterIndex].firstChild as HTMLElement;
       const listItemRect = listItem.getBoundingClientRect();
       const isVisible = listItemRect.top >= 0 && listItemRect.bottom <= window.innerHeight;
-  
+
       if (!isVisible) {
         listItem.scrollIntoView({ behavior: 'smooth' });
       }
@@ -77,19 +77,19 @@ function Search() {
 
   return (
     <div>
-      <TextField 
-        type="text" 
+      <TextField
+        type="text"
         variant='outlined'
-        value={input} 
-        onChange={e => setInput(e.target.value)} 
+        value={input}
+        onChange={e => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Search characters"
         InputProps={{
           startAdornment: selectedCharacters.map(character => (
-            <Chip 
-              key={character.id} 
-              label={character.name} 
-              onDelete={() => handleSelectCharacter(character)} 
+            <Chip
+              key={character.id}
+              label={character.name}
+              onDelete={() => handleSelectCharacter(character)}
             />
           )),
         }}
@@ -98,25 +98,28 @@ function Search() {
         <CircularProgress />
       ) : error ? (
         <Typography variant="body1" color="error">{error}</Typography>
-      ) : characters && (
-        <ul ref={listRef}>
+      ) : characters.length > 0 && (
+        <ul ref={listRef} style={{border:"1px solid gray", borderRadius:"10px", padding:"0"}}>
           {characters.map((character: Character, index: number) => (
-            <ListItem 
-              key={character.id}
-              selected={index === focusedCharacterIndex}
-            >
-              <Checkbox 
-                checked={!!selectedCharacters.find(c => c.id === character.id)} 
-                onChange={() => handleSelectCharacter(character)} 
-              />
-              <ListItemAvatar>
-                <Avatar src={character.image} />
-              </ListItemAvatar>
-              <ListItemText 
-                primary={highlightText(character.name, input)} 
-                secondary={`${character.episode.length} episodes`} 
-              />
-            </ListItem>
+            <div>
+              <ListItem
+                key={character.id}
+                selected={index === focusedCharacterIndex}
+              >
+                <Checkbox
+                  checked={!!selectedCharacters.find(c => c.id === character.id)}
+                  onChange={() => handleSelectCharacter(character)}
+                />
+                <ListItemAvatar>
+                  <Avatar src={character.image} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={highlightText(character.name, input)}
+                  secondary={`${character.episode.length} episodes`}
+                />
+              </ListItem>
+              <Divider />
+            </div>
           ))}
         </ul>
       )}
