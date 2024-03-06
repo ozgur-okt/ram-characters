@@ -2,13 +2,14 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import { Character } from '../types/types';
-import { FETCH_CHARACTERS, SET_CHARACTERS, SET_ERROR, SET_LOADING } from './actionTypes';
+import { CLEAR_CHARACTERS, FETCH_CHARACTERS, SET_CHARACTERS, SET_ERROR, SET_LOADING } from './actionTypes';
 
 export interface IActions {
   SET_CHARACTERS: typeof SET_CHARACTERS,
   SET_LOADING: typeof SET_LOADING,
   SET_ERROR: typeof SET_ERROR,
   FETCH_CHARACTERS: typeof FETCH_CHARACTERS,
+  CLEAR_CHARACTERS: typeof CLEAR_CHARACTERS
 }
 
 type setCharactersAction = {
@@ -31,7 +32,11 @@ export type fetchCharactersAction = {
   payload: string
 }
 
-export type ActionTypes = setCharactersAction | setLoadingAction | setErrorAction | fetchCharactersAction;
+type clearCharactersAction = {
+  type: IActions['CLEAR_CHARACTERS']
+}
+
+export type ActionTypes = setCharactersAction | setLoadingAction | setErrorAction | fetchCharactersAction | clearCharactersAction;
 
 export const fetchCharacters = (input: string) => {
   return (dispatch: Dispatch<ActionTypes>) => {
@@ -52,4 +57,8 @@ export const fetchCharacters = (input: string) => {
 export const setCharacters = (characters: Character[]) => ({
   type: SET_CHARACTERS,
   payload: characters,
+});
+
+export const clearCharacters = () => ({
+  type: CLEAR_CHARACTERS,
 });

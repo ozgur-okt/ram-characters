@@ -1,4 +1,4 @@
-import { SET_CHARACTERS, SET_LOADING, SET_ERROR } from './actionTypes';
+import { SET_CHARACTERS, SET_LOADING, SET_ERROR, CLEAR_CHARACTERS } from './actionTypes';
 import { Character } from '../types/types';
 import { ActionTypes } from './actions';
 
@@ -22,6 +22,8 @@ export const rootReducer = (state = initialState, action: ActionTypes) => {
       return { ...state, isLoading: action.payload };
     case SET_ERROR:
       return { ...state, error: action.payload, isLoading: false };
+    case CLEAR_CHARACTERS:
+      return { ...state, characters: [] };
     default:
       return state;
   }

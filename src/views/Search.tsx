@@ -1,7 +1,7 @@
 // Search.tsx
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCharacters } from '../redux/actions';
+import { fetchCharacters, clearCharacters } from '../redux/actions';
 import { Character } from '../types/types';
 import { AppDispatch, RootState } from '../redux/store';
 import { Chip, TextField, Checkbox, Avatar, ListItem, ListItemText, ListItemAvatar, ListItemSecondaryAction, CircularProgress, Typography } from '@material-ui/core';
@@ -15,7 +15,9 @@ function Search() {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (input) {
+    if (input.trim() === '') {
+      dispatch(clearCharacters());
+    } else {
       dispatch(fetchCharacters(input));
     }
   }, [input, dispatch]);
