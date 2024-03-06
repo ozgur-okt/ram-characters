@@ -1,33 +1,50 @@
 // actions.ts
 import axios from 'axios';
-import { SET_CHARACTERS } from './actionTypes';
-import { Character } from '../types/types'; // assuming you've defined the Character type in a types.ts file
 import { Dispatch } from 'redux';
-
+import { Character } from '../types/types';
+import { FETCH_CHARACTERS, SET_CHARACTERS, SET_ERROR, SET_LOADING } from './actionTypes';
 
 interface IActions {
-  SET_CHARACTERS: string
-  FETCH_CHARACTERS: string
+  SET_CHARACTERS: typeof SET_CHARACTERS,
+  SET_LOADING: typeof SET_LOADING,
+  SET_ERROR: typeof SET_ERROR,
+  FETCH_CHARACTERS: typeof FETCH_CHARACTERS,
 }
 
 type setCharactersAction = {
-  type: IActions['SET_CHARACTERS']
+  type: IActions['SET_CHARACTERS'],
   payload: Character[]
 }
 
+type setLoadingAction = {
+  type: IActions['SET_LOADING'],
+  payload: boolean
+}
+
+type setErrorAction = {
+  type: IActions['SET_ERROR'],
+  payload: string | null
+}
+
 export type fetchCharactersAction = {
-  type: IActions['FETCH_CHARACTERS']
+  type: IActions['FETCH_CHARACTERS'],
   payload: string
 }
 
+export type ActionTypes = setCharactersAction | setLoadingAction | setErrorAction | fetchCharactersAction;
+
 export const fetchCharacters = (input: string) => {
-  return (dispatch: Dispatch<setCharactersAction>) => {
+  return (dispatch: Dispatch<ActionTypes>) => {
+    dispatch({ type: SET_LOADING, payload: true });
     axios.get(`https://rickandmortyapi.com/api/character/?name=${input}`)
       .then(res => {
-        console.log(res.data.results);
-        dispatch(setCharacters(res.data.results));
+        dispatch({ type: SET_CHARACTERS, payload: res.data.results });
+        dispatch({ type: SET_LOADING, payload: false });
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        dispatch({ type: SET_ERROR, payload: err.message });
+        dispatch({ type: SET_LOADING, payload: false });
+      });
   };
 };
 

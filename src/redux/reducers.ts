@@ -1,19 +1,26 @@
-// reducers.ts
-import { SET_CHARACTERS } from './actionTypes';
+import { SET_CHARACTERS, SET_LOADING, SET_ERROR } from './actionTypes';
 import { Character } from '../types/types';
 
 interface IInitialState {
-  characters: Character[]
+  characters: Character[],
+  isLoading: boolean,
+  error: string | null,
 }
 
 const initialState: IInitialState = {
   characters: [] as Character[],
+  isLoading: false,
+  error: null,
 };
 
 export const rootReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case SET_CHARACTERS:
-      return { ...state, characters: action.payload };
+      return { ...state, characters: action.payload, isLoading: false };
+    case SET_LOADING:
+      return { ...state, isLoading: action.payload };
+    case SET_ERROR:
+      return { ...state, error: action.payload, isLoading: false };
     default:
       return state;
   }
