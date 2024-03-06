@@ -30,10 +30,16 @@ function Search() {
     });
   };
 
+  const highlightText = (text: string, highlight: string) => {
+    const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+    return <span>{parts.map(part => part.toLowerCase() === highlight.toLowerCase() ? <b>{part}</b> : part)}</span>;
+  };
+
   return (
     <div>
       <TextField 
         type="text" 
+        variant='outlined'
         value={input} 
         onChange={e => setInput(e.target.value)} 
         placeholder="Search characters"
@@ -61,7 +67,7 @@ function Search() {
             <Avatar src={character.image} />
           </ListItemAvatar>
           <ListItemText 
-            primary={character.name} 
+            primary={highlightText(character.name, input)} 
             secondary={`${character.episode.length} episodes`} 
           />
         </ListItem>
