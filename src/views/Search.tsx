@@ -3,12 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCharacters } from '../redux/actions';
 import { Character } from '../types/types';
-import { Dispatch } from 'redux';
+import { AppDispatch, RootState } from '../redux/store';
 
 function Search() {
   const [input, setInput] = useState('');
-  const characters = useSelector((state: { characters: Character[] }) => state.characters);
-  const dispatch: Dispatch<any> = useDispatch();
+  const characters = useSelector((state: RootState) => state.characters);
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
     if (input) {

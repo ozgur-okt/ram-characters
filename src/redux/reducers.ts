@@ -2,7 +2,11 @@
 import { SET_CHARACTERS } from './actionTypes';
 import { Character } from '../types/types';
 
-const initialState = {
+interface IInitialState {
+  characters: Character[]
+}
+
+const initialState: IInitialState = {
   characters: [] as Character[],
 };
 
