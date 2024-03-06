@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchCharacters } from '../redux/actions';
 import { Character } from '../types/types';
 import { AppDispatch, RootState } from '../redux/store';
-import { Chip, TextField, Checkbox, Avatar, ListItem, ListItemText, ListItemAvatar, ListItemSecondaryAction } from '@material-ui/core';
+import { Chip, TextField, Checkbox, Avatar, ListItem, ListItemText, ListItemAvatar, ListItemSecondaryAction, CircularProgress, Typography } from '@material-ui/core';
 
 function Search() {
   const [input, setInput] = useState('');
   const [selectedCharacters, setSelectedCharacters] = useState<Character[]>([]);
   const characters = useSelector((state: RootState) => state.characters);
+  const isLoading = useSelector((state: RootState) => state.isLoading);
+  const error = useSelector((state: RootState) => state.error);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -45,20 +47,24 @@ function Search() {
           )),
         }}
       />
-      {characters && characters.map((character: Character) => (
-       <ListItem key={character.id}>
-         <Checkbox 
-           checked={!!selectedCharacters.find(c => c.id === character.id)} 
-           onChange={() => handleSelectCharacter(character)} 
-         />
-       <ListItemAvatar>
-         <Avatar src={character.image} />
-       </ListItemAvatar>
-       <ListItemText 
-         primary={character.name} 
-         secondary={`${character.episode.length} episodes`} 
-       />
-     </ListItem>
+      {isLoading ? (
+        <CircularProgress />
+      ) : error ? (
+        <Typography variant="body1" color="error">{error}</Typography>
+      ) : characters && characters.map((character: Character) => (
+        <ListItem key={character.id}>
+          <Checkbox 
+            checked={!!selectedCharacters.find(c => c.id === character.id)} 
+            onChange={() => handleSelectCharacter(character)} 
+          />
+          <ListItemAvatar>
+            <Avatar src={character.image} />
+          </ListItemAvatar>
+          <ListItemText 
+            primary={character.name} 
+            secondary={`${character.episode.length} episodes`} 
+          />
+        </ListItem>
       ))}
     </div>
   );
