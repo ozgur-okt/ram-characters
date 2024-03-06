@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { Character } from '../types/types';
 import { FETCH_CHARACTERS, SET_CHARACTERS, SET_ERROR, SET_LOADING } from './actionTypes';
 
-interface IActions {
+export interface IActions {
   SET_CHARACTERS: typeof SET_CHARACTERS,
   SET_LOADING: typeof SET_LOADING,
   SET_ERROR: typeof SET_ERROR,

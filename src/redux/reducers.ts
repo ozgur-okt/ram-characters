@@ -1,5 +1,6 @@
 import { SET_CHARACTERS, SET_LOADING, SET_ERROR } from './actionTypes';
 import { Character } from '../types/types';
+import { ActionTypes } from './actions';
 
 interface IInitialState {
   characters: Character[],
@@ -13,7 +14,7 @@ const initialState: IInitialState = {
   error: null,
 };
 
-export const rootReducer = (state = initialState, action: any) => {
+export const rootReducer = (state = initialState, action: ActionTypes) => {
   switch (action.type) {
     case SET_CHARACTERS:
       return { ...state, characters: action.payload, isLoading: false };
