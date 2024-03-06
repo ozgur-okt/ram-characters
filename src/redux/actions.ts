@@ -24,6 +24,7 @@ export const fetchCharacters = (input: string) => {
   return (dispatch: Dispatch<setCharactersAction>) => {
     axios.get(`https://rickandmortyapi.com/api/character/?name=${input}`)
       .then(res => {
+        console.log(res.data.results);
         dispatch(setCharacters(res.data.results));
       })
       .catch(err => console.error(err));
