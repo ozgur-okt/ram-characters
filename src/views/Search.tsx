@@ -25,7 +25,7 @@ function Search() {
   }, [input, dispatch]);
 
   useEffect(() => {
-    if (listRef.current) {
+    if (characters.length > 0 && listRef.current) {
       const listItem = listRef.current.children[focusedCharacterIndex] as HTMLElement;
       const listItemRect = listItem.getBoundingClientRect();
       const isVisible = listItemRect.top >= 0 && listItemRect.bottom <= window.innerHeight;
@@ -34,7 +34,7 @@ function Search() {
         listItem.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  }, [focusedCharacterIndex]);
+  }, [characters.length, focusedCharacterIndex]);
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     switch (event.key) {
