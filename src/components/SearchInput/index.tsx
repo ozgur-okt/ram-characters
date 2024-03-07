@@ -25,13 +25,13 @@ const SearchInput: React.FC<SearchInputProps> = ({ input, selectedCharacters, ha
       onKeyDown={handleKeyDown}
       placeholder="Search characters..."
       InputProps={{
-        className: 'search-input',
+        className:'search-input',
         startAdornment: selectedCharacters.map(character => (
           <Chip
             key={character.id}
             label={character.name}
             onDelete={() => handleSelectCharacter(character)}
-            style={{marginRight: '5px', borderRadius: '10px'}}
+            className='chip'
           />
         )),
         endAdornment: isLoading && <CircularProgress color="inherit" size={30} />,

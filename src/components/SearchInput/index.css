@@ -1,6 +1,11 @@
 .search-input {
-  border-radius: 15px;
+  border-radius: 15px !important;
   width: 700px;
-  margin:25px 0 15px 0;
-  background-color: white
+  margin: 25px 0 15px 0;
+  background-color: white;
+}
+
+.chip {
+  margin-right: 10px;
+  border-radius: 10px !important;
 }
