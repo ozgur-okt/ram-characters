@@ -30,7 +30,7 @@ function Search() {
         onClose={() => dispatch(clearCharacters())}
         getOptionLabel={(option) => option.name}
         renderOption={(props, option, { selected }) => (
-          <CharacterOption props={props} option={option} selected={selected} input={input} />
+          <CharacterOption props={props} option={option} selected={selected} input={input} key={option.id} />
         )}
         className='autocomplete'
         renderInput={(params) => (
