@@ -1,11 +1,11 @@
 import React from 'react';
-import { TextField, CircularProgress } from '@mui/material';
+import { TextField, CircularProgress, AutocompleteRenderInputParams } from '@mui/material';
 import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import './index.css';
 
 interface CharacterInputProps {
-  params: any;
+  params: AutocompleteRenderInputParams;
   input: string;
   setInput: (input: string) => void;
 }

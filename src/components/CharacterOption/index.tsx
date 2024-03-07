@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import { Checkbox, Box, Divider, Typography } from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -6,7 +6,7 @@ import { Character } from '../../types/types';
 import './index.css';
 
 interface CharacterOptionProps {
-  props: any;
+  props: HTMLAttributes<HTMLLIElement>;
   option: Character;
   selected: boolean;
   input: string;
