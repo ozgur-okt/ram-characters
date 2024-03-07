@@ -1,6 +1,10 @@
 import { Typography } from '@material-ui/core'
 
-function ErrorText({ errorText} : { errorText: string}) {
+interface ErrorTextProps {
+  errorText: string
+}
+
+const ErrorText: React.FC<ErrorTextProps> = ({ errorText }) => {
 
   return (
     <Typography variant="body1" color="error">{errorText}</Typography>

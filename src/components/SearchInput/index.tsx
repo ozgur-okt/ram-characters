@@ -1,4 +1,3 @@
-// SearchInput.tsx
 import React from 'react';
 import { TextField, CircularProgress, Chip } from '@material-ui/core';
 import { Character } from '../../types/types';

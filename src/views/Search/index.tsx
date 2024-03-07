@@ -1,14 +1,12 @@
-// Search.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCharacters, clearCharacters } from '../../redux/actions';
 import { Character } from '../../types/types';
 import { AppDispatch, RootState } from '../../redux/store';
-import { Chip, TextField, Checkbox, Avatar, ListItem, ListItemText, ListItemAvatar, CircularProgress, Typography, Divider, Box } from '@material-ui/core';
 import './index.css';
 import ErrorText from '../../components/ErrorText';
-import HighlightText from '../../components/HighlightText';
 import SearchInput from '../../components/SearchInput';
+import CharacterItem from '../../components/CharacterItem';
 
 function Search() {
   const [input, setInput] = useState('');
@@ -89,26 +87,13 @@ function Search() {
       ) : characters.length > 0 && (
         <div ref={listRef} className='character-list'>
           {characters.map((character: Character, index: number) => (
-            <Box sx={{ borderRadius: '15px' }}>
-              <ListItem
-                key={character.id}
-                selected={index === focusedCharacterIndex}
-              >
-                <Checkbox
-                  checked={!!selectedCharacters.find(c => c.id === character.id)}
-                  onChange={() => handleSelectCharacter(character)}
-                  style={!!selectedCharacters.find(c => c.id === character.id) ? { color: '#1876d1' } : {}}
-                />
-                <ListItemAvatar>
-                  <Avatar style={{ borderRadius: '10px' }} src={character.image} />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={<HighlightText text={character.name} highlight={input} />}
-                  secondary={`${character.episode.length} episodes`}
-                />
-              </ListItem>
-              <Divider />
-            </Box>
+            <CharacterItem
+              character={character}
+              selectedCharacters={selectedCharacters}
+              handleSelectCharacter={handleSelectCharacter}
+              isFocused={index === focusedCharacterIndex}
+              input={input}
+            />
           ))}
         </div>
       )}
