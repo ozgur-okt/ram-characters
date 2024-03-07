@@ -48,7 +48,7 @@ export const fetchCharacters = (input: string) => {
         dispatch({ type: SET_ERROR, payload: null });
       })
       .catch(err => {
-        dispatch({ type: SET_ERROR, payload: "Not found" });
+        dispatch({ type: SET_ERROR, payload: err.message });
         dispatch({ type: SET_LOADING, payload: false });
       });
   };
