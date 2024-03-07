@@ -16,15 +16,15 @@ const initialState: IInitialState = {
 
 export const rootReducer = (state = initialState, action: ActionTypes) => {
   switch (action.type) {
-    case SET_CHARACTERS:
-      return { ...state, characters: action.payload, isLoading: false };
-    case SET_LOADING:
-      return { ...state, isLoading: action.payload };
-    case SET_ERROR:
-      return { ...state, error: action.payload, isLoading: false };
-    case CLEAR_CHARACTERS:
-      return { ...state, characters: [] };
-    default:
-      return state;
+  case SET_CHARACTERS:
+    return { ...state, characters: action.payload, isLoading: false };
+  case SET_LOADING:
+    return { ...state, isLoading: action.payload };
+  case SET_ERROR:
+    return { ...state, error: action.payload, isLoading: false };
+  case CLEAR_CHARACTERS:
+    return { ...state, characters: [] };
+  default:
+    return state;
   }
 };

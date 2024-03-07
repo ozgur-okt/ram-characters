@@ -30,6 +30,6 @@ const CharacterInput: React.FC<CharacterInputProps> = ({ params, input, setInput
       }}
     />
   );
-}
+};
 
 export default CharacterInput;

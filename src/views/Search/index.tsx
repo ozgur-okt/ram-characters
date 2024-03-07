@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCharacters, clearCharacters } from '../../redux/actions';
 import { AppDispatch, RootState } from '../../redux/store';
@@ -41,7 +41,7 @@ function Search() {
             {children}
           </Box>
         )}
-        ChipProps={{className: 'chip'}}
+        ChipProps={{ className: 'chip' }}
       />
     </Box>
   );

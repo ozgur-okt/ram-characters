@@ -3,7 +3,7 @@ import { Checkbox, Box, Divider, Typography } from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { Character } from '../../types/types';
-import './index.css'
+import './index.css';
 
 interface CharacterOptionProps {
   props: any;
@@ -43,6 +43,6 @@ const CharacterOption: React.FC<CharacterOptionProps> = ({ props, option, select
       <Divider />
     </>
   );
-}
+};
 
 export default CharacterOption;
