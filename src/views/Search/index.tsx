@@ -20,6 +20,11 @@ function Search() {
     }
   }, [input, dispatch]);
 
+  const clearInputAndCharacters = () => {
+    setInput('');
+    dispatch(clearCharacters());
+  };
+
   return (
     <Box className='search-container'>
       <Autocomplete
@@ -27,7 +32,7 @@ function Search() {
         id="checkboxes-tags-demo"
         options={characters}
         disableCloseOnSelect
-        onClose={() => dispatch(clearCharacters())}
+        onClose={() => clearInputAndCharacters()}
         getOptionLabel={(option) => option.name}
         renderOption={(props, option, { selected }) => (
           <CharacterOption props={props} option={option} selected={selected} input={input} key={option.id} />
