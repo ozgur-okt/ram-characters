@@ -27,6 +27,7 @@ function Search() {
         id="checkboxes-tags-demo"
         options={characters}
         disableCloseOnSelect
+        onClose={() => dispatch(clearCharacters())}
         getOptionLabel={(option) => option.name}
         renderOption={(props, option, { selected }) => (
           <CharacterOption props={props} option={option} selected={selected} input={input} />
