@@ -1,0 +1,17 @@
+.search-container {
+  padding:10px; 
+  display:flex; 
+  align-items:center; 
+  flex-direction:column; 
+  overflow:auto
+}
+
+.character-list {
+  border:0.5px solid gray; 
+  border-radius:25px; 
+  padding:0; 
+  width:700px; 
+  height:500px; 
+  overflow:hidden; 
+  background-color:white
+}
