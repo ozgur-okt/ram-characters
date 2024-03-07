@@ -23,7 +23,7 @@
 
 .chip {
   border-radius: 10px !important;
-  margin-right: 8px !important;
+  margin: 0 8px 2px 0 !important;
 }
 
 @media screen and (max-width: 768px) {

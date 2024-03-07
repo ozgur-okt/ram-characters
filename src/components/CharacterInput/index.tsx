@@ -21,7 +21,6 @@ const CharacterInput: React.FC<CharacterInputProps> = ({ params, input, setInput
       className='text-field'
       InputProps={{
         ...params.InputProps,
-        className: 'input',
         endAdornment: (
           <>
             {loading ? <CircularProgress color="inherit" size={20} /> : null}
