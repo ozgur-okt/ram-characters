@@ -14,7 +14,7 @@ function Search() {
   const isLoading = useSelector((state: RootState) => state.isLoading);
   const error = useSelector((state: RootState) => state.error);
   const dispatch: AppDispatch = useDispatch();
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (input.trim() === '') {
@@ -22,6 +22,7 @@ function Search() {
     } else {
       dispatch(fetchCharacters(input));
     }
+    setFocusedCharacterIndex(0);
   }, [input, dispatch]);
 
   useEffect(() => {
@@ -77,32 +78,31 @@ function Search() {
   };
 
   return (
-    <Box display="flex" sx={{padding:"10px",border:'1px solid red'}}>
+    <div style={{padding:"10px", display:"flex", alignItems:"center", flexDirection:"column", overflow:"auto" }}>
       <TextField
         type="text"
         variant='outlined'
         value={input}
         onChange={e => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Search characters"
+        placeholder="Search characters..."
         InputProps={{
-          style: { borderRadius: '15px', width: '700px'},
+          style: { borderRadius: '15px', width: '700px', margin: '15px 0 15px 0', backgroundColor: 'white'},
           startAdornment: selectedCharacters.map(character => (
             <Chip
               key={character.id}
               label={character.name}
               onDelete={() => handleSelectCharacter(character)}
-              style={{marginRight: '5px'}}
+              style={{marginRight: '5px', borderRadius: '10px'}}
             />
           )),
+          endAdornment: isLoading && <CircularProgress color="inherit" size={30} />,
         }}
       />
-      {isLoading ? (
-        <CircularProgress />
-      ) : error ? (
+      {error ? (
         <Typography variant="body1" color="error">{error}</Typography>
       ) : characters.length > 0 && (
-        <ul ref={listRef} style={{border:"0.5px solid gray", borderRadius:"25px", padding:"0", width:"700px", height:"400px", overflow:"scroll"}}>
+        <div ref={listRef} style={{border:"0.5px solid gray", borderRadius:"25px", padding:"0", width:"700px", height:"500px", overflow:"hidden", backgroundColor:"white"}}>
           {characters.map((character: Character, index: number) => (
             <Box sx={{borderRadius:'15px'}}>
               <ListItem
@@ -112,6 +112,7 @@ function Search() {
                 <Checkbox
                   checked={!!selectedCharacters.find(c => c.id === character.id)}
                   onChange={() => handleSelectCharacter(character)}
+                  style={!!selectedCharacters.find(c => c.id === character.id) ? {color: '#1876d1'} : {}}
                 />
                 <ListItemAvatar>
                   <Avatar style={{borderRadius:'10px'}} src={character.image} />
@@ -124,9 +125,9 @@ function Search() {
               <Divider />
             </Box>
           ))}
-        </ul>
+        </div>
       )}
-    </Box>
+    </div>
   );
 }
 
