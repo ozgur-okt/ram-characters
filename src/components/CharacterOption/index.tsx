@@ -3,6 +3,7 @@ import { Checkbox, Box, Divider, Typography } from '@mui/material';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { Character } from '../../types/types';
+import './index.css'
 
 interface CharacterOptionProps {
   props: any;
@@ -27,17 +28,16 @@ const CharacterOption: React.FC<CharacterOptionProps> = ({ props, option, select
         <Checkbox
           icon={icon}
           checkedIcon={checkedIcon}
-          style={{ marginRight: 8 }}
           checked={selected}
         />
-        <img src={option.image} alt={option.name} style={{ marginRight: 8, height: '40px' }} />
+        <img src={option.image} alt={option.name} className='character-image' />
         <Box>
           <Box>
             {beforeMatch}
             <b>{match}</b>
             {afterMatch}
           </Box>
-          <Typography>{`${episodeCount} episodes`}</Typography>
+          <Typography fontSize={15} color='gray'>{`${episodeCount} episodes`}</Typography>
         </Box>
       </li>
       <Divider />
