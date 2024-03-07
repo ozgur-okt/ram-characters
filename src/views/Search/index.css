@@ -9,9 +9,13 @@
   width: 600px;
 }
 
+.Mui-focused {
+  border-radius: 12px !important;
+}
+
 .paper {
   border: 1px solid #AEB9C9;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-top: 20px;
   font-family: 'Roboto', 'Helvetica', Arial, sans-serif;
   overflow: hidden

@@ -1,8 +1,7 @@
-// actions.ts
-import axios from 'axios';
 import { Dispatch } from 'redux';
 import { Character } from '../types/types';
 import { CLEAR_CHARACTERS, FETCH_CHARACTERS, SET_CHARACTERS, SET_ERROR, SET_LOADING } from './actionTypes';
+import { getCharacters } from '../api';
 
 export interface IActions {
   SET_CHARACTERS: typeof SET_CHARACTERS,
@@ -41,7 +40,7 @@ export type ActionTypes = setCharactersAction | setLoadingAction | setErrorActio
 export const fetchCharacters = (input: string) => {
   return (dispatch: Dispatch<ActionTypes>) => {
     dispatch({ type: SET_LOADING, payload: true });
-    axios.get(`https://rickandmortyapi.com/api/character/?name=${input}`)
+    getCharacters(input)
       .then(res => {
         dispatch({ type: SET_CHARACTERS, payload: res.data.results });
         dispatch({ type: SET_LOADING, payload: false });

@@ -15,7 +15,6 @@ const CharacterInput: React.FC<CharacterInputProps> = ({ params, input, setInput
   return (
     <TextField
       {...params}
-      label="Search characters"
       placeholder="Search characters"
       value={input}
       onChange={e => setInput(e.target.value)}
