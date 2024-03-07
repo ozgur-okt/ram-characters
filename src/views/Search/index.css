@@ -17,6 +17,11 @@
   overflow: hidden
 }
 
+.chip {
+  border-radius: 10px !important;
+  margin-right: 8px !important;
+}
+
 @media screen and (max-width: 768px) {
   .autocomplete {
     width: 80%;

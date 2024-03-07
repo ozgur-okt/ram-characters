@@ -40,6 +40,7 @@ function Search() {
             {children}
           </Box>
         )}
+        ChipProps={{className: 'chip'}}
       />
     </Box>
   );
