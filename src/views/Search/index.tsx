@@ -36,9 +36,9 @@ function Search() {
           <CharacterInput params={params} input={input} setInput={setInput} />
         )}
         PaperComponent={({ children }) => (
-          <div className='paper' style={{border:'1px solid gray',borderRadius: '10px', marginTop:'20px', fontFamily:'"Roboto","Helvetica","Arial",sans-serif', overflow:'hidden'}}>
+          <Box className='paper'>
             {children}
-          </div>
+          </Box>
         )}
       />
     </Box>
