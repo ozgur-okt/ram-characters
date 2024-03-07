@@ -9,7 +9,7 @@
   width: 600px;
 }
 
-.Mui-focused {
+.MuiAutocomplete-inputRoot {
   border-radius: 12px !important;
 }
 
