@@ -12,6 +12,7 @@ function Search() {
   const [input, setInput] = useState('');
   const debouncedInput = useDebounce(input, 500);
   const characters = useSelector((state: RootState) => state.characters);
+  const isLoading = useSelector((state: RootState) => state.isLoading);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +27,7 @@ function Search() {
         multiple
         id="checkboxes-tags-demo"
         options={characters}
+        loading={isLoading}
         disableCloseOnSelect
         onClose={() => setInput('')}
         inputValue={input}
