@@ -1,46 +1,41 @@
-# Getting Started with Create React App
+# Multiple Search Project
+This project is a React application that provides a search functionality for characters. It uses Redux for state management and Material-UI for the UI components.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+For deployed version on vercel: https://ram-characters-88ha.vercel.app/
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+To run this project, follow these steps:
 
-### `npm start`
+Clone the repository:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`git clone https://github.com/ozgur-okt/ram-characters`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Install dependencies:
 
-### `npm test`
+`npm install`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Start the development server:
 
-### `npm run build`
+`npm start`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features
+* Search characters using an autocomplete input.
+* Displays a list of characters matching the search query.
+* Allows selecting multiple characters.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Packages Used
+* React and React DOM for building the UI.
+* Redux for state management.
+* Material-UI for UI components and styling.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
+* Enter a character name in the search input.
+* Select from the autocomplete suggestions to add characters.
+* View the selected characters as chips.
 
-### `npm run eject`
+## Contributing
+Feel free to contribute to this project by submitting pull requests.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
+This project is licensed under the MIT License.
