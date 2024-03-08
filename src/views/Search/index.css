@@ -18,7 +18,8 @@
   border-radius: 12px;
   margin-top: 20px;
   font-family: 'Roboto', 'Helvetica', Arial, sans-serif;
-  overflow: hidden
+  overflow: hidden;
+  background-color: #fff;
 }
 
 .chip {
