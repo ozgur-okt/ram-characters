@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { Character } from '../types/types';
-import { CLEAR_CHARACTERS, FETCH_CHARACTERS, SET_CHARACTERS, SET_ERROR, SET_LOADING } from './actionTypes';
+import { FETCH_CHARACTERS, SET_CHARACTERS, SET_ERROR, SET_LOADING } from './actionTypes';
 import { getCharacters } from '../api';
 
 export interface IActions {
@@ -8,7 +8,6 @@ export interface IActions {
   SET_LOADING: typeof SET_LOADING,
   SET_ERROR: typeof SET_ERROR,
   FETCH_CHARACTERS: typeof FETCH_CHARACTERS,
-  CLEAR_CHARACTERS: typeof CLEAR_CHARACTERS
 }
 
 type setCharactersAction = {
@@ -31,11 +30,7 @@ export type fetchCharactersAction = {
   payload: string
 }
 
-type clearCharactersAction = {
-  type: IActions['CLEAR_CHARACTERS']
-}
-
-export type ActionTypes = setCharactersAction | setLoadingAction | setErrorAction | fetchCharactersAction | clearCharactersAction;
+export type ActionTypes = setCharactersAction | setLoadingAction | setErrorAction | fetchCharactersAction;
 
 export const fetchCharacters = (input: string) => {
   return (dispatch: Dispatch<ActionTypes>) => {
@@ -56,8 +51,4 @@ export const fetchCharacters = (input: string) => {
 export const setCharacters = (characters: Character[]) => ({
   type: SET_CHARACTERS,
   payload: characters,
-});
-
-export const clearCharacters = () => ({
-  type: CLEAR_CHARACTERS,
 });

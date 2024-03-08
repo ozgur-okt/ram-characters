@@ -1,5 +1,4 @@
 export const SET_CHARACTERS = 'SET_CHARACTERS';
 export const FETCH_CHARACTERS = 'FETCH_CHARACTERS';
-export const CLEAR_CHARACTERS = 'CLEAR_CHARACTERS';
 export const SET_LOADING = 'SET_LOADING';
 export const SET_ERROR = 'SET_ERROR';

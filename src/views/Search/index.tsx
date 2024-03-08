@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCharacters, clearCharacters } from '../../redux/actions';
+import { fetchCharacters } from '../../redux/actions';
 import { AppDispatch, RootState } from '../../redux/store';
 import './index.css';
 import { Autocomplete, Box } from '@mui/material';
@@ -13,17 +13,10 @@ function Search() {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (input.trim() === '') {
-      dispatch(clearCharacters());
-    } else {
+    if (input.trim() !== '') {
       dispatch(fetchCharacters(input));
     }
   }, [input, dispatch]);
-
-  const clearInputAndCharacters = () => {
-    setInput('');
-    dispatch(clearCharacters());
-  };
 
   return (
     <Box className='search-container'>
@@ -32,19 +25,28 @@ function Search() {
         id="checkboxes-tags-demo"
         options={characters}
         disableCloseOnSelect
-        onClose={() => clearInputAndCharacters()}
+        onClose={() => setInput('')}
+        inputValue={input}
         getOptionLabel={(option) => option.name}
         renderOption={(props, option, { selected }) => (
-          <CharacterOption props={props} option={option} selected={selected} input={input} key={option.id} />
+          <CharacterOption
+            props={props}
+            option={option}
+            selected={selected}
+            input={input}
+            key={option.id}
+          />
         )}
         className='autocomplete'
         renderInput={(params) => (
-          <CharacterInput params={params} input={input} setInput={setInput} />
+          <CharacterInput
+            params={params}
+            input={input}
+            setInput={setInput}
+          />
         )}
         PaperComponent={({ children }) => (
-          <Box className='paper'>
-            {children}
-          </Box>
+          <Box className='paper'>{children}</Box>
         )}
         ChipProps={{ className: 'chip' }}
       />

@@ -1,4 +1,4 @@
-import { SET_CHARACTERS, SET_LOADING, SET_ERROR, CLEAR_CHARACTERS } from './actionTypes';
+import { SET_CHARACTERS, SET_LOADING, SET_ERROR } from './actionTypes';
 import { Character } from '../types/types';
 import { ActionTypes } from './actions';
 
@@ -15,15 +15,17 @@ const initialState: IInitialState = {
 };
 
 export const rootReducer = (state = initialState, action: ActionTypes) => {
+  let uniqueCharacters;
   switch (action.type) {
   case SET_CHARACTERS:
-    return { ...state, characters: action.payload, isLoading: false };
+    uniqueCharacters = action.payload.filter(
+      (char: Character) => !state.characters.some((stateChar: Character) => stateChar.id === char.id)
+    );
+    return { ...state, characters: [...state.characters, ...uniqueCharacters], isLoading: false };
   case SET_LOADING:
     return { ...state, isLoading: action.payload };
   case SET_ERROR:
     return { ...state, error: action.payload, isLoading: false };
-  case CLEAR_CHARACTERS:
-    return { ...state, characters: [] };
   default:
     return state;
   }
