@@ -2,21 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCharacters } from '../../redux/actions';
 import { AppDispatch, RootState } from '../../redux/store';
-import './index.css';
 import { Autocomplete, Box } from '@mui/material';
 import CharacterOption from '../../components/CharacterOption';
 import CharacterInput from '../../components/CharacterInput';
+import { useDebounce } from '../../hooks/useDebounce';
+import './index.css';
 
 function Search() {
   const [input, setInput] = useState('');
+  const debouncedInput = useDebounce(input, 500);
   const characters = useSelector((state: RootState) => state.characters);
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (input.trim() !== '') {
-      dispatch(fetchCharacters(input));
+    if (debouncedInput.trim() !== '') {
+      dispatch(fetchCharacters(debouncedInput));
     }
-  }, [input, dispatch]);
+  }, [debouncedInput, dispatch]);
 
   return (
     <Box className='search-container'>
