@@ -3,7 +3,7 @@ import { Character } from '../types/types';
 import { FETCH_CHARACTERS, SET_CHARACTERS, SET_ERROR, SET_LOADING } from './actionTypes';
 import { getCharacters } from '../api';
 
-export interface IActions {
+interface IActions {
   SET_CHARACTERS: typeof SET_CHARACTERS,
   SET_LOADING: typeof SET_LOADING,
   SET_ERROR: typeof SET_ERROR,
@@ -25,7 +25,7 @@ type setErrorAction = {
   payload: string | null
 }
 
-export type fetchCharactersAction = {
+type fetchCharactersAction = {
   type: IActions['FETCH_CHARACTERS'],
   payload: string
 }
@@ -47,8 +47,3 @@ export const fetchCharacters = (input: string) => {
       });
   };
 };
-
-export const setCharacters = (characters: Character[]) => ({
-  type: SET_CHARACTERS,
-  payload: characters,
-});
